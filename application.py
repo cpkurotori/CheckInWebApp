@@ -4,7 +4,7 @@ import checkIn, datetime, dbcredentials
 
 # Open connection to the database using the login credentials of the given username and password parameters
 
-# EB looks for an 'applicationlication' callable by default.
+# EB looks for an 'application' callable by default.
 application = Flask(__name__)
 
 mysql = MySQL()
@@ -22,15 +22,6 @@ def index():
 @application.route("/home", methods=["post"])
 def home():
 	return application.send_static_file("checkIn.html")
-
-@application.route("/admin", methods=["post"])
-def admin():
-
-
-	if db==False:
-		return application.send_static_file("index.html")
-	else:
-		return application.send_static_file("checkIn.html")
 
 @application.route("/checkInPrompt", methods=["post"])
 def checkInPrompt():
