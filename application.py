@@ -5,6 +5,7 @@ import checkIn, datetime, dbcredentials
 # Open connection to the database using the login credentials of the given username and password parameters
 
 # EB looks for an 'application' callable by default.
+
 application = Flask(__name__)
 
 mysql = MySQL()
@@ -17,7 +18,17 @@ mysql.init_app(application)
 
 @application.route("/")
 def index():
-	return application.send_static_file("checkIn.html")
+	return application.send_static_file("index.html")
+
+@application.route("/main", methods=["post"])
+def main():
+	adminU = request.form['adminU']
+	adminP = request.form['adminP']
+	if (adminU == dbcredentials.getAdminU()) and (adminP == dbcredentials.getAdminP()):
+		return application.send_static_file("checkIn.html")
+	else:
+		return application.send_static_file("index.html")
+
 
 @application.route("/home", methods=["post"])
 def home():
@@ -40,7 +51,7 @@ def newMember():
 	uname = request.form['uname']
 	email = request.form['email']
 	phone = request.form['phone']
-	test = checkIn.checkDuplicate (mysql, "username",uname)
+	test = checkIn.checkDuplicate(mysql,"username",uname)
 	now = datetime.datetime.now()
 	date = now.strftime("%Y-%m-%d")
 	if test==True:
@@ -81,5 +92,5 @@ def updateInformation():
 if __name__ == "__main__":
 	# Setting debug to True enables debug output. This line should be
 	# removed before deploying a production application.
-	# application.debug = True
+	application.debug = True
 	application.run()
