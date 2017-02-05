@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form action="/updateInformation" method="post">
+            First Name:     <input type="text" name="first"><br>
+            Last Name:      <input type="text" name="last"><br>
+			What would you like to update:
+			<select name="field">
+				<option value="username">Username</option>
+				<option value="email">Email</option>
+				<option value="phone_number">Phone Number</option>
+			</select><br>
+			Updated info:	<input type="text" name="updatedInfo"><br>
+            <input type="submit" value="Update Info">
+        </form>
+        <br><br><br>Please note updating your information will not check you in. Once your information is updated, please follows the steps to check in. Thank you.
+        <form action="/home" method="post">
+            <input type="submit" value="Home">
+        </form>
+    </body>
+</html>
+
