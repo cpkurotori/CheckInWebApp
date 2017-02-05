@@ -8,10 +8,10 @@ import checkIn, datetime, dbcredentials
 application = Flask(__name__)
 
 mysql = MySQL()
-#application.config['MYSQL_DATABASE_DB'] = 'Roster'
-#application.config['MYSQL_DATABASE_HOST'] = 'localhost'
-#application.config['MYSQL_DATABASE_USER'] = 'root'
-#application.config['MYSQL_DATABASE_PASSWORD'] = 'password'
+application.config['MYSQL_DATABASE_DB'] = dbcredentials.getDatabase()
+application.config['MYSQL_DATABASE_HOST'] = dbcredentials.getHost()
+application.config['MYSQL_DATABASE_USER'] = dbcredentials.getUser()
+application.config['MYSQL_DATABASE_PASSWORD'] = dbcredentials.getPass()
 mysql.init_app(application)
 
 
