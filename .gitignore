@@ -5,4 +5,4 @@
 !.elasticbeanstalk/*.global.yml
 .ebextensions
 .zip
-.dbcredentials.py
+dbcredentials.py

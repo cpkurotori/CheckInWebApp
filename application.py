@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask.ext.mysql import MySQL
-import checkIn, datetime, .dbcredentials
+import checkIn, datetime, dbcredentials
 
 # Open connection to the database using the login credentials of the given username and password parameters
 
