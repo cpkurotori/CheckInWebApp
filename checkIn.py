@@ -57,3 +57,12 @@ def updateInfo (mysql, first, last, field, updatedInfo):
 	conn.commit()
 	cursor.close()
 	conn.close()
+
+def getName (mysql, username):
+	conn = mysql.connect()
+	cursor = conn.cursor()
+	cursor.execute("SELECT firstname FROM MemberInformation WHERE username=\""+str(username)+"\"")
+	firstname = cursor.fetchall()[0][0]
+	cursor.close()
+	conn.close()
+	return firstname

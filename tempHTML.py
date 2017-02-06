@@ -1,6 +1,6 @@
 import os
 
-def tempHTML(type, message):
+def tempHTML(type, message, flag):
 	main_html_top ='''<!DOCTYPE HTML>
 	<!--
 		Identity by HTML5 UP
@@ -52,7 +52,7 @@ def tempHTML(type, message):
 									<h2>ADMINISTRATOR LOGIN</h2>
 								</header>
 								<hr />
-								<p style="color:red">{message}</p>
+								<p style="color:{flag_c}">{message}</p>
 								<form action="/main" method="post">
 									<div class="field">
 										<input type="text" id="adminU" name="adminU" /><label for="adminU">ADMIN USERNAME</label><br>
@@ -67,7 +67,7 @@ def tempHTML(type, message):
 							<h2>CLUB MEETING CHECK-IN</h2>
 						</header>
 						<hr />
-						<p style="color:red">{message}</p>
+						<p style="color:{flag_c}">{message}</p>
 						<form action="/checkInPrompt" method="post">
 							<div class="field">
 								<input type="radio" id="new" name="member" value="new"><label for="new">NEW MEMBER</label><br>
@@ -87,13 +87,13 @@ def tempHTML(type, message):
 							<h2>NEW MEMBER CHECK-IN</h2>
 						</header>
 						<hr />
-						<p style="color:red">{message}</p>
+						<p style="color:{flag_c}">{message}</p>
 						<form action="/newMember" method="post">
 							<div class="field">
-								<input type="text" id="first" name="first" /><label for="first">FIRST NAME</label><br>
-								<input type="text" id="last" name="last" /><label for="last">LAST NAME</label><br>
-								<input type="text" id="uname" name="uname" /><label for="uname">CHOOSE A USERNAME (CASE SENSITIVE)</label><br>
-								<input type="text" id="email" name="email" /><label for="email">EMAIL</label><br>
+								<input type="text" id="first" name="first" /><label for="first">FIRST NAME*</label><br>
+								<input type="text" id="last" name="last" /><label for="last">LAST NAME*</label><br>
+								<input type="text" id="uname" name="uname" /><label for="uname">CHOOSE A USERNAME*</label><br>
+								<input type="text" id="email" name="email" /><label for="email">EMAIL*</label><br>
 								<input type="text" id="phone" name="phone" /><label for="phone">PHONE NUMBER</label><br>
 							</div>
 							<ul class="actions">
@@ -109,10 +109,10 @@ def tempHTML(type, message):
 							<h2>RETURNING MEMBER CHECK-IN</h2>
 						</header>
 						<hr />
-						<p style="color:red">{message}</p>
+						<p style="color:{flag_c}">{message}</p>
 						<form action="/returningMember" method="post">
 							<div class="field">
-								<input type="text" id="uname" name="uname" /><label for="uname">USERNAME (CASE-SENSITIVE)</label><br>
+								<input type="text" id="uname" name="uname" /><label for="uname">USERNAME*</label><br>
 							</div>
 							<ul class="actions">
 								<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>
@@ -127,18 +127,18 @@ def tempHTML(type, message):
 							<h2>RETURNING MEMBER INFORMATION UPDATE</h2>
 						</header>
 						<hr />
-						<p style="color:red">{message}</p>
+						<p style="color:{flag_c}">{message}</p>
 						<form action="/updateInformation" method="post">
 							<div class="field">
-								<input type="text" id="first" name="first" /><label for="first">FIRST NAME</label><br>
-								<input type="text" id="last" name="last" /><label for="last">LAST NAME</label><br>
+								<input type="text" id="first" name="first" /><label for="first">FIRST NAME*</label><br>
+								<input type="text" id="last" name="last" /><label for="last">LAST NAME*</label><br>
 								WHAT WOULD YOU LIKE TO UPDATE?
 								<select name="field">
 									<option value="username">USERNAME</option>
 									<option value="email">EMAIL</option>
 									<option value="phone_number">PHONE NUMBER</option>
 								</select><br>
-								<input type="text" id="updatedInfo" name="updatedInfo" /><label for="updatedInfo">UPDATED INFORMATION</label><br>
+								<input type="text" id="updatedInfo" name="updatedInfo" /><label for="updatedInfo">UPDATED INFORMATION*</label><br>
 							</div>
 							<ul class="actions">
 								<li><input type="submit" name="update" value="Update">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="reset" value="Reset"></li>
@@ -148,6 +148,10 @@ def tempHTML(type, message):
 						<form action="/home" method="post">
 							<input type="submit" class="fit" name="menu" value="Main Menu">
 						</form>'''
+	if flag == 0:
+		flag_c = "grey"
+	elif flag == 1:
+		flag_c = "red"
 	f_variable = variable.format(**locals())
 	html = main_html_top + f_variable + main_html_bot
 	return html
@@ -157,6 +161,6 @@ def strToFile(text, filename):
 	os.write( output , text )
 	os.close( output )
 
-def main(type, message):
-	html = tempHTML(type, message)
+def main(type, message, flag):
+	html = tempHTML(type, message, flag)
 	strToFile(html,"static/tempHTML.html")
