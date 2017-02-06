@@ -8,3 +8,4 @@
 dbcredentials.py
 *.pyc
 /staticz*
+static/tempHTML.html

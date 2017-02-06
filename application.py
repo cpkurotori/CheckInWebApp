@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask.ext.mysql import MySQL
-import checkIn, datetime, dbcredentials
+import checkIn, datetime, dbcredentials, tempHTML
 
 # Open connection to the database using the login credentials of the given username and password parameters
 
@@ -18,31 +18,35 @@ mysql.init_app(application)
 
 @application.route("/")
 def index():
-	return application.send_static_file("index.html")
+	tempHTML.main("admin", "")
+	return application.send_static_file("tempHTML.html")
 
 @application.route("/main", methods=["post"])
 def main():
 	adminU = request.form['adminU']
 	adminP = request.form['adminP']
 	if (adminU == dbcredentials.getAdminU()) and (adminP == dbcredentials.getAdminP()):
-		return application.send_static_file("checkIn.html")
+		tempHTML.main("checkIn", "")
 	else:
-		return application.send_static_file("index.html")
+		tempHTML.main("admin", "Incorrect username or password. Please try again.")
+	return application.send_static_file("tempHTML.html")
 
 
 @application.route("/home", methods=["post"])
 def home():
-	return application.send_static_file("checkIn.html")
+	tempHTML.main("checkIn", "")
+	return application.send_static_file("tempHTML.html")
 
 @application.route("/checkInPrompt", methods=["post"])
 def checkInPrompt():
 	member = request.form['member']
 	if member == "new":
-		return application.send_static_file("newmember.html")
+		tempHTML.main("new", "")
 	elif member == "returning":
-		return application.send_static_file("returningmember.html")
+		tempHTML.main("returning", "")
 	elif member == "update":
-		return application.send_static_file("updateinformation.html")
+		tempHTML.main("update", "")
+	return application.send_static_file("tempHTML.html")
 
 @application.route("/newMember", methods=["post"])
 def newMember():
@@ -51,27 +55,28 @@ def newMember():
 	uname = request.form['uname']
 	email = request.form['email']
 	phone = request.form['phone']
-	test = checkIn.checkDuplicate(mysql,"username",uname)
+	test = checkIn.checkDuplicate(mysql,"MemberInformation","username",uname)
 	now = datetime.datetime.now()
 	date = now.strftime("%Y-%m-%d")
 	if test==True:
-		return application.send_static_file("newmember.html")
+		tempHTML.main("new", "Username already exists. Please choose a different username.")
 	else:
 		checkIn.createNew (mysql, first, last, uname, email, phone, date)
 		checkIn.checkIn (mysql, uname, date)
-	return application.send_static_file("checkIn.html")
+		tempHTML.main("checkIn", "")
+	return application.send_static_file("tempHTML.html")
 
 @application.route("/returningMember", methods=["post"])
 def returningMember():
 	uname = request.form['uname']
-	test = checkIn.checkDuplicate (mysql,"username",uname)
+	test = checkIn.checkDuplicate (mysql,"MemberInformation","username",uname)
 	now = datetime.datetime.now()
 	date = now.strftime("%Y-%m-%d")
 	if test==False:
-		return application.send_static_file("returningmember.html")
+		tempHTML.main("returning", "Member not found. Please try again, or go to the Main Menu and either register as a new member, or update your user profile.")
 	else:
-		checkIn.checkIn (mysql, uname, date)
-	return application.send_static_file("checkIn.html")
+		tempHTML.main("checkIn", "")
+	return application.send_static_file("tempHTML.html")
 
 @application.route("/updateInformation", methods=["post"])
 def updateInformation():
@@ -84,13 +89,14 @@ def updateInformation():
 	test = checkIn.checkNameDuplicate (mysql,first,last)
 	if test==True:
 		checkIn.updateInfo (mysql,first,last,field,updatedInfo)
+		tempHTML.main("checkIn", "")
 	else:
-		return application.send_static_file("updateinformation.html")
-	return application.send_static_file("checkIn.html")
+		tempHTML.main("update", "Member not found. Please try again. NOTE: First name and lastname are case-sensitive (i.e. if you originally checked-in using all lowercase, you must enter all lowercase)")
+	return application.send_static_file("tempHTML.html")
 
 # run the application.
 if __name__ == "__main__":
 	# Setting debug to True enables debug output. This line should be
 	# removed before deploying a production application.
-	#application.debug = True
+	application.debug = True
 	application.run()

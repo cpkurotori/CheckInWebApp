@@ -1,4 +1,5 @@
 from flask.ext.mysql import MySQL
+import os
 
 def createNew (mysql, first, last, uname, email, phone, date):
 	conn = mysql.connect()
@@ -19,10 +20,10 @@ def checkIn (mysql, uname, date):
 	cursor.close()
 	conn.close()
 
-def checkDuplicate (mysql, field, test):
+def checkDuplicate (mysql, table, field, test):
 	conn = mysql.connect()
 	cursor = conn.cursor()	
-	cursor.execute("SELECT COUNT(*) FROM MemberInformation WHERE "+str(field)+"=\""+str(test)+"\"")
+	cursor.execute("SELECT COUNT(*) FROM "+table+" WHERE "+str(field)+"=\""+str(test)+"\"")
 	count = cursor.fetchall()[0][0]
 	if count != 0:
 		cursor.close()
