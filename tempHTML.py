@@ -1,0 +1,162 @@
+import os
+
+def tempHTML(type, message):
+	main_html_top ='''<!DOCTYPE HTML>
+	<!--
+		Identity by HTML5 UP
+		html5up.net | @ajlkn
+		Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	-->
+	<html>
+		<head>
+			<title>Dot-Slash Computer Science</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<!--[if lte IE 8]><script src="static/assets/js/html5shiv.js"></script><![endif]-->
+			<link rel="stylesheet" href="static/assets/css/main.css" />
+			<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
+			<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
+			<noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
+		</head>
+		<body class="is-loading">
+			<!-- Wrapper -->
+				<div id="wrapper">
+					<!-- Main -->
+						<section id="main">
+							<header>
+								<h1>DOT-SLASH COMPUTER SCIENCE</h1><br>'''
+	main_html_bot = '''
+								<footer>
+							</footer>
+						</section>
+					<!-- Footer -->
+						<footer id="footer">
+							<ul class="copyright">
+								<li>&copy; JANE DOE</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</footer>
+				</div>
+			<!-- Scripts -->
+				<!--[if lte IE 8]><script src="static/assets/js/respond.min.js"></script><![endif]-->
+				<script>
+					if ('addEventListener' in window) {
+						window.addEventListener('load', function() { document.body.className = document.body.className.replace(/is-loading/, ''); });
+						document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+					}
+				</script>
+		</body>
+	</html>'''
+	variable = ''''''
+	if type == "admin":
+		variable = '''
+									<h2>ADMINISTRATOR LOGIN</h2>
+								</header>
+								<hr />
+								<p style="color:red">{message}</p>
+								<form action="/main" method="post">
+									<div class="field">
+										<input type="text" id="adminU" name="adminU" /><label for="adminU">ADMIN USERNAME</label><br>
+										<input type="password" id="adminP" name="adminP" /><label for="adminP">ADMIN PASSWORD</label><br>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>
+									</ul>
+								</form>'''
+	elif type == "checkIn":
+		variable = '''
+							<h2>CLUB MEETING CHECK-IN</h2>
+						</header>
+						<hr />
+						<p style="color:red">{message}</p>
+						<form action="/checkInPrompt" method="post">
+							<div class="field">
+								<input type="radio" id="new" name="member" value="new"><label for="new">NEW MEMBER</label><br>
+								<input type="radio" id="returning" name="member" value="returning"><label for="returning">RETURNING MEMBER</label><br>
+								<input type="radio" id="update" name="member" value="update"><label for="update">UPDATE INFORMATION/FORGOT USERNAME (RETURNING MEMBERS)</label><br>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>
+							</ul>
+						</form>
+						<hr />
+						<form action="/home" method="post">
+							<input type="submit" class="fit" name="menu" value="Main Menu">
+						</form>'''
+	elif type == "new":
+		variable = '''
+							<h2>NEW MEMBER CHECK-IN</h2>
+						</header>
+						<hr />
+						<p style="color:red">{message}</p>
+						<form action="/newMember" method="post">
+							<div class="field">
+								<input type="text" id="first" name="first" /><label for="first">FIRST NAME</label><br>
+								<input type="text" id="last" name="last" /><label for="last">LAST NAME</label><br>
+								<input type="text" id="uname" name="uname" /><label for="uname">CHOOSE A USERNAME (CASE SENSITIVE)</label><br>
+								<input type="text" id="email" name="email" /><label for="email">EMAIL</label><br>
+								<input type="text" id="phone" name="phone" /><label for="phone">PHONE NUMBER</label><br>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>
+							</ul>
+						</form>
+						<hr />
+						<form action="/home" method="post">
+							<input type="submit" class="fit" name="menu" value="Main Menu">
+						</form>'''
+	elif type == "returning":
+		variable = '''							
+							<h2>RETURNING MEMBER CHECK-IN</h2>
+						</header>
+						<hr />
+						<p style="color:red">{message}</p>
+						<form action="/returningMember" method="post">
+							<div class="field">
+								<input type="text" id="uname" name="uname" /><label for="uname">USERNAME (CASE-SENSITIVE)</label><br>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>
+							</ul>
+						</form>
+						<hr />
+						<form action="/home" method="post">
+							<input type="submit" class="fit" name="menu" value="Main Menu">
+						</form>'''
+	elif type == "update":
+		variable = '''
+							<h2>RETURNING MEMBER INFORMATION UPDATE</h2>
+						</header>
+						<hr />
+						<p style="color:red">{message}</p>
+						<form action="/updateInformation" method="post">
+							<div class="field">
+								<input type="text" id="first" name="first" /><label for="first">FIRST NAME</label><br>
+								<input type="text" id="last" name="last" /><label for="last">LAST NAME</label><br>
+								WHAT WOULD YOU LIKE TO UPDATE?
+								<select name="field">
+									<option value="username">USERNAME</option>
+									<option value="email">EMAIL</option>
+									<option value="phone_number">PHONE NUMBER</option>
+								</select><br>
+								<input type="text" id="updatedInfo" name="updatedInfo" /><label for="updatedInfo">UPDATED INFORMATION</label><br>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" name="update" value="Update">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="reset" value="Reset"></li>
+							</ul>
+						</form>
+						<hr />
+						<form action="/home" method="post">
+							<input type="submit" class="fit" name="menu" value="Main Menu">
+						</form>'''
+	f_variable = variable.format(**locals())
+	html = main_html_top + f_variable + main_html_bot
+	return html
+
+def strToFile(text, filename):
+	output = os.open( filename , os.O_CREAT | os.O_TRUNC | os.O_RDWR )
+	os.write( output , text )
+	os.close( output )
+
+def main(type, message):
+	html = tempHTML(type, message)
+	strToFile(html,"static/tempHTML.html")
