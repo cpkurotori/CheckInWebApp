@@ -3,9 +3,10 @@ import os
 def tempHTML(type, message, flag):
 	main_html_top ='''<!DOCTYPE HTML>
 	<!--
-		Identity by HTML5 UP
-		html5up.net | @ajlkn
-		Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+		Web Aplication for Dot-Slash Computer Science club at Ohlone College by Cameron Kurotori
+		HTML Template: Identity by HTML5 UP
+			html5up.net | @ajlkn
+			Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 	-->
 	<html>
 		<head>
@@ -24,7 +25,7 @@ def tempHTML(type, message, flag):
 					<!-- Main -->
 						<section id="main">
 							<header>
-								<img src = "static/images/dotslash.png" alt="Dot Slash Logo" style="width:80%;" align=:middle"><br>'''
+								<img src = "static/images/dotslash.png" alt="Dot Slash Logo" style="width:80%; max-width:800px" align=:middle"><br><br><br>'''
 	main_html_bot = '''
 								<footer>
 							</footer>
@@ -32,7 +33,7 @@ def tempHTML(type, message, flag):
 					<!-- Footer -->
 						<footer id="footer">
 							<ul class="copyright">
-								<li>&copy; JANE DOE</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; CAMERON KUROTORI</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</footer>
 				</div>

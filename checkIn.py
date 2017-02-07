@@ -1,6 +1,10 @@
 from flask.ext.mysql import MySQL
 import os
 
+# connects to mysql database, creates cursor
+# insert element in MemberInformation table with [first], [last], [uname], [email], [phone] and [date]
+# commits the changes to the database
+# close cursor and connection
 def createNew (mysql, first, last, uname, email, phone, date):
 	conn = mysql.connect()
 	cursor = conn.cursor()
@@ -9,6 +13,11 @@ def createNew (mysql, first, last, uname, email, phone, date):
 	cursor.close()
 	conn.close()
 
+# connects to mysql database, creates cursor
+# finds roster_id of person with matching uname
+# inserts element in MemberInformation table with found roster_id an [date]
+# commits the changes to the database
+# close cursor and connection
 def checkIn (mysql, uname, date):
 	# selects the roster id of the person wtih the username that matches the  parameter uname
 	conn = mysql.connect()
@@ -19,6 +28,11 @@ def checkIn (mysql, uname, date):
 	conn.commit()
 	cursor.close()
 	conn.close()
+
+# connects to mysql database, creates cursor
+# querys to find any elements in [table] with the a value in the [field] column that matches [test]
+# 0 for not found - close cursor and connection and return True
+# !0 for found - close cursor and connection and return False
 
 def checkDuplicate (mysql, table, field, test):
 	conn = mysql.connect()
@@ -33,6 +47,11 @@ def checkDuplicate (mysql, table, field, test):
 		cursor.close()
 		conn.close()		
 		return False	#indicated no duplicate is found
+
+# connects to mysql database, creates cursor
+# querys to find any elements in MemberInformation table with the a first name matching [first] and a last name matching [last]
+# 0 for not found - close cursor and connection and return False
+# 1 for found - close cursor and connection and return True
 
 def checkNameDuplicate (mysql, first, last,):
 	conn = mysql.connect()
