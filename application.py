@@ -1,3 +1,11 @@
+'''
+This program uses a Flask webapplication framework.
+The purpose of this program is to check in club members (or anything in your own circumstances) and store the data in a MySQL database
+This program redirects webbrowsers to the necessary html files to display
+'''
+
+
+
 from flask import Flask, request
 from flask.ext.mysql import MySQL
 import checkIn, datetime, dbcredentials, tempHTML
@@ -94,8 +102,9 @@ def newMember():
 
 # returningMember - member check in prompt page (if error: returning member check in page)
 # requests all the fields and assigns them to respective variables (if required fields empty, create returning member check in page with error and message indicating error )
-# checks if duplicate username exists (if duplicate does not exists, create new member check in page with error and message indicating error)
-# calls checkIn() from checkIn.py
+# calls checkDuplicate from checkIn.py (if duplicate does not exists, creates new member check in page with error and message indicating error)
+# if duplicate exists --> calls duplicateCheckIn() from checkIn.py (if duplicate exists, creates member check in prompt page with no error and message saying user was already checked in)
+# if duplicate does not exist --> calls checkIn() from checkIn.py
 # creates html page - member check in prompt page with no error and message indicating they have been checked in
 # returns to the webbrowser (using Flask) the tempHTML.html page that was created
 @application.route("/returningMember", methods=["post"])
@@ -104,16 +113,20 @@ def returningMember():
 	if uname == "":
 		tempHTML.main("returning", "Please fill-in every required field",1)
 	else:
-		test = checkIn.checkDuplicate (mysql,"MemberInformation","username",uname)
 		now = datetime.datetime.now()
 		date = now.strftime("%Y-%m-%d")
+		test = checkIn.checkDuplicate (mysql,"MemberInformation","username",uname)
 		if test==False:
 			tempHTML.main("returning", "Member not found. Please try again, or go to the Main Menu and either register as a new member, or update your user profile.", 1)
 		else:
-			checkIn.checkIn (mysql, uname, date)
-			f_name= checkIn.getName (mysql, uname)
-			message = "Thank you, "+str(f_name)+". You've been checked in for "+str(date)+"!"
-			tempHTML.main("checkIn", message, 0)
+			alreadyHere = checkIn.duplicateCheckIn (mysql, uname, date)
+			if alreadyHere == True:
+				tempHTML.main("checkIn", "That user is already checked in.", 0)
+			else:
+				checkIn.checkIn (mysql, uname, date)
+				f_name= checkIn.getName (mysql, uname)
+				message = "Thank you, "+str(f_name)+". You've been checked in for "+str(date)+"!"
+				tempHTML.main("checkIn", message, 0)
 	return application.send_static_file("tempHTML.html")
 
 # returningMember updateInformation- member check in prompt page (if error: update page)

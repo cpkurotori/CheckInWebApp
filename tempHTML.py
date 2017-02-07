@@ -1,5 +1,29 @@
+'''
+The purpose of this program is to create a dynamic html file in the static folder
+The html file changes depending on what options you pass through parameters 
+'''
+
 import os
 
+# the main call function (what you would call from other programs)
+# calls tempHTML()
+# calls strToFile()
+def main(type, message, flag):
+	html = tempHTML(type, message, flag)
+	strToFile(html,"static/tempHTML.html")
+
+# saves [text] to indicated [filename]
+# creates file (if not already created), truncates it (deletes all information), and opens for reading and writing (we only will write to it)
+# writes [text] to the file and closes it
+def strToFile(text, filename):
+	output = os.open( filename , os.O_CREAT | os.O_TRUNC | os.O_RDWR )
+	os.write( output , text )
+	os.close( output )
+
+# concatenates strings
+# takes an html template and adds parts depending on [type] and the [message]
+# flag indicates what color the message is (ERROR (1) = RED, NO ERROR (0) = GREY)
+# returns a string of the concatenated text
 def tempHTML(type, message, flag):
 	main_html_top ='''<!DOCTYPE HTML>
 	<!--
@@ -157,11 +181,3 @@ def tempHTML(type, message, flag):
 	html = main_html_top + f_variable + main_html_bot
 	return html
 
-def strToFile(text, filename):
-	output = os.open( filename , os.O_CREAT | os.O_TRUNC | os.O_RDWR )
-	os.write( output , text )
-	os.close( output )
-
-def main(type, message, flag):
-	html = tempHTML(type, message, flag)
-	strToFile(html,"static/tempHTML.html")
