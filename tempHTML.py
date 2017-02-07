@@ -24,7 +24,7 @@ def tempHTML(type, message, flag):
 					<!-- Main -->
 						<section id="main">
 							<header>
-								<img src = "static/images/dotslash.png" alt="Dot Slash Logo" style="width:400px;" align=:middle"><br>'''
+								<img src = "static/images/dotslash.png" alt="Dot Slash Logo" style="width:80%;" align=:middle"><br>'''
 	main_html_bot = '''
 								<footer>
 							</footer>
