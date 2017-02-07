@@ -86,6 +86,7 @@ def returningMember():
 		if test==False:
 			tempHTML.main("returning", "Member not found. Please try again, or go to the Main Menu and either register as a new member, or update your user profile.", 1)
 		else:
+			checkIn.checkIn (mysql, uname, date)
 			f_name= checkIn.getName (mysql, uname)
 			message = "Thank you, "+str(f_name)+". You've been checked in for "+str(date)+"!"
 			tempHTML.main("checkIn", message, 0)
