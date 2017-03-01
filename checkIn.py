@@ -3,7 +3,7 @@ The purpose of this program is to define functions that involve commands to the 
 '''
 
 
-from flask.ext.mysql import MySQL
+from flaskext.mysql import MySQL
 import os
 
 # connects to mysql database, creates cursor

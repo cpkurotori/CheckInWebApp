@@ -7,7 +7,7 @@ This program redirects webbrowsers to the necessary html files to display
 
 
 from flask import Flask, request
-from flask.ext.mysql import MySQL
+from flaskext.mysql import MySQL
 import checkIn, datetime, dbcredentials, tempHTML
 
 # EB looks for an 'application' callable by default.
