@@ -7,13 +7,13 @@ from flaskext.mysql import MySQL
 import os
 
 # connects to mysql database, creates cursor
-# insert element in MemberInformation table with [first], [last], [uname], [email], [phone] and [date]
+# insert element in MemberInformation table with [first], [last], [uname], [email], [phone], [github] and [date]
 # commits the changes to the database
 # close cursor and connection
-def createNew (mysql, first, last, uname, email, phone, date):
+def createNew (mysql, first, last, uname, email, phone, github, date):
 	conn = mysql.connect()
 	cursor = conn.cursor()
-	cursor.execute("INSERT INTO MemberInformation (firstname, lastname, username, email, phone_number, date_joined) VALUES (\""+first+"\",\""+last+"\",\""+uname+"\",\""+email+"\",\""+phone+"\",\""+date+"\")")
+	cursor.execute("INSERT INTO MemberInformation (firstname, lastname, username, email, phone_number, github, date_joined) VALUES (\""+first+"\",\""+last+"\",\""+uname+"\",\""+email+"\",\""+phone+"\",\""+github+"\",\""+date+"\")")
 	conn.commit()
 	cursor.close()
 	conn.close()

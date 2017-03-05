@@ -120,6 +120,7 @@ def tempHTML(type, message, flag):
 								<input type="text" id="uname" name="uname" /><label for="uname">CHOOSE A USERNAME*</label><br>
 								<input type="text" id="email" name="email" /><label for="email">EMAIL*</label><br>
 								<input type="text" id="phone" name="phone" /><label for="phone">PHONE NUMBER</label><br>
+								<input type="text" id="github" name="github" /><label for="github">GITHUB USERNAME</label><br>
 							</div>
 							<ul class="actions">
 								<li><input type="submit" name="Enter">&#160;&#160;&#160;&#160;&#160;&#160;<input type="reset" name="Reset"></li>

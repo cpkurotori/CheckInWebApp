@@ -84,20 +84,21 @@ def newMember():
 	uname = request.form['uname'] 
 	email = request.form['email']
 	phone = request.form['phone']
-	if first =="" or last == "" or uname == "" or email == "":
-		tempHTML.main("new", "Please fill-in every required field", 1)	
-	else:		
-		test = checkIn.checkDuplicate(mysql,"MemberInformation","username",uname)
-		now = datetime.datetime.now()
-		date = now.strftime("%Y-%m-%d")
-		if test==True:
-			tempHTML.main("new", "Username already exists. Please choose a different username.", 1)
-		else:
-			checkIn.createNew (mysql, first, last, uname, email, phone, date)
-			checkIn.checkIn (mysql, uname, date)
-			f_name= checkIn.getName (mysql, uname)
-			message = "Thank you, "+str(f_name)+". You've been registered and checked in for "+str(date)+"!"
-			tempHTML.main("checkIn", message, 0)
+	github = request.form['github']
+	if (len(first) < 1) or (len(last) <1) or (len(uname) <1) or (len(email) <5):
+		tempHTML.main("new", "Please fill-in every required field", 1)
+		return application.send_static_file("tempHTML.html")
+	test = checkIn.checkDuplicate(mysql,"MemberInformation","username",uname)
+	now = datetime.datetime.now()
+	date = now.strftime("%Y-%m-%d")
+	if test==True:
+		tempHTML.main("new", "Username already exists. Please choose a different username.", 1)
+	else:
+		checkIn.createNew (mysql, first, last, uname, email, phone, github, date)
+		checkIn.checkIn (mysql, uname, date)
+		f_name= checkIn.getName (mysql, uname)
+		message = "Thank you, "+str(f_name)+". You've been registered and checked in for "+str(date)+"!"
+		tempHTML.main("checkIn", message, 0)
 	return application.send_static_file("tempHTML.html")
 
 # returningMember - member check in prompt page (if error: returning member check in page)
