@@ -162,6 +162,7 @@ def tempHTML(type, message, flag):
 									<option value="username">USERNAME</option>
 									<option value="email">EMAIL</option>
 									<option value="phone_number">PHONE NUMBER</option>
+									<option value="github">GITHUB USERNAME</option>
 								</select><br>
 								<input type="text" id="updatedInfo" name="updatedInfo" /><label for="updatedInfo">UPDATED INFORMATION*</label><br>
 							</div>
