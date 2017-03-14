@@ -30,7 +30,7 @@ def checkIn (mysql, uname, date):
 	cursor.execute("SELECT roster_id FROM MemberInformation WHERE username=\""+str(uname)+"\"")
 	r_id = cursor.fetchall()[0][0]			# stores the query results
 	cursor.execute("INSERT INTO Attendance (roster_id,date) VALUES("+str(r_id)+",\""+str(date)+"\")")
-	cursor.execute("UPDATE MemberInformation SET last_seen=\""+str(date)+"\" WHERE roster_id="+str(r_id))
+	cursor.execute("UPDATE MemberInformation SET last_seen=\""+str(date)+"\", inactive=false WHERE roster_id="+str(r_id))
 	conn.commit()
 	cursor.close()
 	conn.close()
