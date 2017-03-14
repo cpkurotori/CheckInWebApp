@@ -39,6 +39,7 @@ def tempHTML(type, message, flag):
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<!--[if lte IE 8]><script src="static/assets/js/html5shiv.js"></script><![endif]-->
 			<link rel="stylesheet" href="static/assets/css/main.css" />
+			<link rel="shortcut icon" href="static/favicon.ico">
 			<!--[if lte IE 9]><link rel="stylesheet" href="static/assets/css/ie9.css" /><![endif]-->
 			<!--[if lte IE 8]><link rel="stylesheet" href="static/assets/css/ie8.css" /><![endif]-->
 			<noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
