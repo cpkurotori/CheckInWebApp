@@ -1,6 +1,6 @@
 #A Check-In/Attendance Tracker Web Application
 
-Out of the need for a check-in program, this program was created to maintain a database of members and their attendence to club meetings. This application is written in python and utilizes a flask framework for the web application. A live version of the webapp can be found at http://checkin.dot-slash-cs.club.
+Out of the need for a check-in program, this program was created to maintain a database of members and their attendence to club meetings. This application is written in python and utilizes a flask framework for the web application. A live version is no longer availiable.
 
 ##Requirements
 This web application requires the following packages:
