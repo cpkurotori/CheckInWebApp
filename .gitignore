@@ -1,3 +1,4 @@
 tempHTML.*
 *.pyc
 venv
+dbcredentials.py
